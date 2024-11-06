@@ -3,7 +3,18 @@
   <component name="AdditionalModuleElements">
     <content url="file://$MODULE_DIR$" dumb="true">
       <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial1/spring-annotations/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial1/spring-annotations/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial1/spring-annotations/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial2/ems-backend/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial2/ems-backend/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial2/ems-backend/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial3/fcc-spring-boot-3-main/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial3/fcc-spring-boot-3-main/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial3/fcc-spring-boot-3-main/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial4/docker-compose-spring-boot-postgres-master/bezkoder-app/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial5/kbe-rest-brewery-maven-props/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial5/kbe-rest-brewery-maven-props/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/My_Projects/Tutorial5/kbe-rest-brewery-maven-props/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spring-annotations/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spring-annotations/src/test/java" isTestSource="true" />
     </content>
