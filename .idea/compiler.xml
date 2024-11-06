@@ -8,27 +8,33 @@
         <outputRelativeToContentRoot value="true" />
         <module name="taco-cloud-sd-cassandra" />
         <module name="taco-cloud-jdbctemplate" />
-        <module name="tacocloud-restclient" />
         <module name="taco-cloud (1)" />
-        <module name="tacocloud-domain" />
         <module name="taco-cloud (2)" />
-        <module name="tacocloud-data" />
         <module name="taco-cloud-sd-jdbc" />
-        <module name="tacocloud" />
         <module name="taco-cloud-sd-jpa" />
-        <module name="tacocloud-ui" />
         <module name="taco-cloud (3)" />
-        <module name="tacocloud-security" />
         <module name="taco-cloud (4)" />
         <module name="taco-cloud-sfc" />
-        <module name="tacocloud-api" />
         <module name="taco-cloud-sd-mongodb" />
-        <module name="tacocloud-web" />
+        <module name="spring-annotations" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="spring-annotations" target="17" />
+      <module name="taco-cloud-parent (1)" target="1.8" />
+      <module name="tacocloud" target="1.8" />
+      <module name="tacocloud-api" target="1.8" />
+      <module name="tacocloud-data" target="1.8" />
+      <module name="tacocloud-domain" target="1.8" />
+      <module name="tacocloud-restclient" target="1.8" />
+      <module name="tacocloud-security" target="1.8" />
+      <module name="tacocloud-ui" target="1.8" />
+      <module name="tacocloud-web" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="spring-annotations" options="-parameters" />
       <module name="taco-cloud (1)" options="-parameters" />
       <module name="taco-cloud (2)" options="-parameters" />
       <module name="taco-cloud (3)" options="-parameters" />
