@@ -7,21 +7,22 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="taco-cloud-sd-cassandra" />
-        <module name="taco-cloud-jdbctemplate" />
-        <module name="taco-cloud (1)" />
-        <module name="taco-cloud (2)" />
-        <module name="taco-cloud-sd-jdbc" />
         <module name="taco-cloud-sd-jpa" />
         <module name="taco-cloud (3)" />
+        <module name="taco-cloud-jdbctemplate" />
         <module name="taco-cloud (4)" />
         <module name="taco-cloud-sfc" />
+        <module name="taco-cloud (1)" />
+        <module name="taco-cloud (2)" />
         <module name="taco-cloud-sd-mongodb" />
         <module name="spring-annotations" />
+        <module name="taco-cloud-sd-jdbc" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="spring-annotations" target="17" />
       <module name="taco-cloud-parent (1)" target="1.8" />
+      <module name="taco-cloud-parent (2)" target="1.5" />
       <module name="tacocloud" target="1.8" />
       <module name="tacocloud-api" target="1.8" />
       <module name="tacocloud-data" target="1.8" />

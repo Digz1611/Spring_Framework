@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/taco-cloud-parent (2).iml" filepath="$PROJECT_DIR$/taco-cloud-parent (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/My_Projects/Tutorial1/spring-annotations/spring-annotations/spring-annotations.iml" filepath="$PROJECT_DIR$/My_Projects/Tutorial1/spring-annotations/spring-annotations/spring-annotations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/taco-cloud-parent.iml" filepath="$PROJECT_DIR$/taco-cloud-parent.iml" />
     </modules>
   </component>
 </project>
