@@ -1,0 +1,33 @@
+<dependencies>
+	<!-- Spring Boot Starter Web for REST API -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+
+	<!-- Spring Boot Starter Data JPA for database operations -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+
+	<!-- PostgreSQL Driver -->
+	<dependency>
+		<groupId>org.postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<version>42.5.0</version> <!-- Make sure you use the latest version -->
+	</dependency>
+
+	<!-- Spring Boot Starter Security (optional, if you use security) -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+
+	<!-- Springdoc OpenAPI for Swagger integration -->
+	<dependency>
+		<groupId>org.springdoc</groupId>
+		<artifactId>springdoc-openapi-ui</artifactId>
+		<version>1.6.14</version> <!-- Update this version if needed -->
+	</dependency>
+</dependencies>
