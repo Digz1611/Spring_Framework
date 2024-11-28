@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 public class LoginRequest {
     @NotBlank
-    private String username; // Changed to username from email
+    private String email;
 
     @NotBlank
     private String password;

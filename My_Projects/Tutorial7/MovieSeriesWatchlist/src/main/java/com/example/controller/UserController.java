@@ -30,9 +30,9 @@ public class UserController {
         User user = new User();
         user.setUsername(signupRequest.getUsername()); // Set username
         user.setEmail(signupRequest.getEmail());       // Set email
-        user.setPassword(signupRequest.getPassword());
-        userService.registerUser(user);
-        return ResponseEntity.ok("User registered successfully!");
+        user.setPassword(signupRequest.getPassword()); // Set password
+        userService.registerUser(user); // Register the user
+        return ResponseEntity.ok("User registered successfully! Please log in.");
     }
 
     // Login endpoint
@@ -40,11 +40,11 @@ public class UserController {
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(), // Use username for login
+                        loginRequest.getEmail(), // Use email for login
                         loginRequest.getPassword()
                 )
         );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication); // Set authentication in the context
         return ResponseEntity.ok("Login successful!");
     }
 
