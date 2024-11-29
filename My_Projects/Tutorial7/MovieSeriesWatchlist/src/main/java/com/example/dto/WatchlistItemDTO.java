@@ -11,8 +11,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class WatchlistItemDTO {
 
-    private Long id;                // ID of the watchlist item
-    private Long categoryId;        // Category ID for association
-    private String name;            // Name of the watchlist item
-    private String description;     // Description of the watchlist item
+    private Long id;
+    private String name;
+    private Long categoryId;
+    private String releaseDate;
+    private String description;
 }

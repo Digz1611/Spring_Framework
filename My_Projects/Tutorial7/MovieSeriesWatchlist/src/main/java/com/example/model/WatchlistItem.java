@@ -24,7 +24,7 @@ public class WatchlistItem {
     private CategoryType category; // Category type (MOVIE or SERIES)
 
     @Column(name = "release_date")
-    private LocalDate releaseDate; // Release date of the movie or series
+    private String releaseDate; // Release date of the movie or series
 
     @Column(columnDefinition = "TEXT") // Optional description
     private String description;
