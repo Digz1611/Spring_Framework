@@ -2,19 +2,16 @@ package com.example.repository;
 
 import com.example.model.WatchlistItem;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface WatchlistItemRepository extends JpaRepository<WatchlistItem, Long> {
 
-    List<WatchlistItem> findByUserId(Long userId);
+    List<WatchlistItem> findByUserId(Long userId); // Get items by user ID
 
-    List<WatchlistItem> findByUserIdAndCategory(Long userId, String category);
+    List<WatchlistItem> findByUserIdAndCategory(Long userId, String category); // Get items by category for user
 
-    Optional<WatchlistItem> findByIdAndUserId(Long id, Long userId);
-
-    void deleteByIdAndUserId(Long id, Long userId);
-
-    void deleteAllByUserId(Long userId);
+    void deleteAllByUserId(Long userId); // Delete all items by user ID
 }

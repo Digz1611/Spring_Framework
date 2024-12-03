@@ -1,41 +1,39 @@
 package com.example.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "watchlist_items") // Table name
+@Table(name = "watchlist_items")
 public class WatchlistItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Unique identifier for the watchlist item
+    private Long id;
 
+    @NotBlank(message = "Name cannot be blank.")
     @Column(nullable = false)
-    private String name; // Name of the item (e.g., movie/series title)
+    private String name;
 
-    @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Category cannot be blank.")
     @Column(nullable = false)
-    private CategoryType category; // Category type (MOVIE or SERIES)
+    private String category;
 
-    @Column(name = "release_date")
-    private String releaseDate; // Release date of the movie or series
+    @NotBlank(message = "Release date cannot be blank.")
+    @Column(name = "release_date", nullable = false)
+    private String releaseDate;
 
-    @Column(columnDefinition = "TEXT") // Optional description
+    @NotBlank(message = "Description cannot be blank.")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false) // Foreign key connecting the user
-    private User user; // Association with the user who added the item
-}
-
-// Enum embedded within the same file
-enum CategoryType {
-    MOVIE,  // Represents movies
-    SERIES  // Represents series
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull(message = "User cannot be null.")
+    private User user;
 }

@@ -38,38 +38,36 @@ public class UserController {
     // Login endpoint
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        // Authenticate using email and password
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), // Use email for login
                         loginRequest.getPassword()
                 )
         );
-        SecurityContextHolder.getContext().setAuthentication(authentication); // Set authentication in the context
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         return ResponseEntity.ok("Login successful!");
     }
 
     // Update User details endpoint
     @PutMapping("/update")
     public ResponseEntity<String> updateUserDetails(@RequestBody UserResetRequest updatedUserRequest) {
-        // Get the current authenticated user's username
-        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        // Pass only the relevant fields to the service method
         User updatedUser = new User();
         updatedUser.setUsername(updatedUserRequest.getUsername());
         updatedUser.setEmail(updatedUserRequest.getEmail());
         updatedUser.setPassword(updatedUserRequest.getPassword());
 
-        userService.updateUserDetails(currentUsername, updatedUser); // Use username for update
+        userService.updateUserDetails(currentEmail, updatedUser);
         return ResponseEntity.ok("User details updated successfully!");
     }
 
     // Delete User account endpoint
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUser() {
-        // Get the current authenticated user's username
-        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        userService.deleteUserByEmail(currentUsername); // Delete user by username
+        String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        userService.deleteUserByEmail(currentEmail);
         return ResponseEntity.ok("User account deleted successfully!");
     }
 }

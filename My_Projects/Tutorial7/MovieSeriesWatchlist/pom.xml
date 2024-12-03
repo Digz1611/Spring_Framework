@@ -15,13 +15,7 @@
 	<dependency>
 		<groupId>org.postgresql</groupId>
 		<artifactId>postgresql</artifactId>
-		<version>42.5.0</version> <!-- Ensure compatibility -->
-	</dependency>
-
-	<!-- Spring Boot Starter Security -->
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-security</artifactId>
+		<version>42.5.0</version>
 	</dependency>
 
 	<!-- Springdoc OpenAPI for Swagger integration -->
@@ -36,6 +30,13 @@
 		<groupId>jakarta.validation</groupId>
 		<artifactId>jakarta.validation-api</artifactId>
 		<version>3.0.2</version>
+	</dependency>
+
+	<!-- Hibernate Validator -->
+	<dependency>
+		<groupId>org.hibernate.validator</groupId>
+		<artifactId>hibernate-validator</artifactId>
+		<version>8.0.1.Final</version>
 	</dependency>
 
 	<!-- Lombok -->
@@ -64,22 +65,5 @@
 				<artifactId>junit-vintage-engine</artifactId>
 			</exclusion>
 		</exclusions>
-	</dependency>
-
-	<!-- JWT Token Integration -->
-	<dependency>
-		<groupId>io.jsonwebtoken</groupId>
-		<artifactId>jjwt-api</artifactId>
-		<version>0.11.5</version>
-	</dependency>
-	<dependency>
-		<groupId>io.jsonwebtoken</groupId>
-		<artifactId>jjwt-impl</artifactId>
-		<version>0.11.5</version>
-	</dependency>
-	<dependency>
-		<groupId>io.jsonwebtoken</groupId>
-		<artifactId>jjwt-jackson</artifactId>
-		<version>0.11.5</version>
 	</dependency>
 </dependencies>

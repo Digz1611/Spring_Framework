@@ -19,10 +19,13 @@ public class WatchlistItemService {
 
     // Add a new watchlist item
     public WatchlistItem addWatchlistItem(Long userId, WatchlistItem watchlistItem) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        watchlistItem.setUser(user);
-        return watchlistItemRepository.save(watchlistItem);
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            watchlistItem.setUser(user.get());
+            return watchlistItemRepository.save(watchlistItem);
+        } else {
+            throw new RuntimeException("User not found");
+        }
     }
 
     // Get all watchlist items for a user
@@ -30,28 +33,29 @@ public class WatchlistItemService {
         return watchlistItemRepository.findByUserId(userId);
     }
 
-    // Get watchlist items by category for a user
+    // Get all watchlist items for a user filtered by category
     public List<WatchlistItem> getWatchlistItemsByCategory(Long userId, String category) {
         return watchlistItemRepository.findByUserIdAndCategory(userId, category);
     }
 
     // Update a watchlist item
-    public WatchlistItem updateWatchlistItem(Long userId, Long id, WatchlistItem updatedWatchlistItem) {
-        Optional<WatchlistItem> existingItem = watchlistItemRepository.findByIdAndUserId(id, userId);
-        if (existingItem.isPresent()) {
-            WatchlistItem item = existingItem.get();
-            item.setName(updatedWatchlistItem.getName());
-            item.setCategory(updatedWatchlistItem.getCategory());
-            item.setReleaseDate(updatedWatchlistItem.getReleaseDate());
-            item.setDescription(updatedWatchlistItem.getDescription());
-            return watchlistItemRepository.save(item);
+    public WatchlistItem updateWatchlistItem(Long userId, Long itemId, WatchlistItem updatedWatchlistItem) {
+        Optional<WatchlistItem> existingItem = watchlistItemRepository.findById(itemId);
+        if (existingItem.isPresent() && existingItem.get().getUser().getId().equals(userId)) {
+            updatedWatchlistItem.setId(itemId);
+            return watchlistItemRepository.save(updatedWatchlistItem);
         }
-        return null;
+        throw new RuntimeException("Watchlist item not found or user mismatch");
     }
 
     // Delete a specific watchlist item
-    public void deleteWatchlistItem(Long userId, Long id) {
-        watchlistItemRepository.deleteByIdAndUserId(id, userId);
+    public void deleteWatchlistItem(Long userId, Long itemId) {
+        Optional<WatchlistItem> existingItem = watchlistItemRepository.findById(itemId);
+        if (existingItem.isPresent() && existingItem.get().getUser().getId().equals(userId)) {
+            watchlistItemRepository.delete(existingItem.get());
+        } else {
+            throw new RuntimeException("Watchlist item not found or user mismatch");
+        }
     }
 
     // Delete all watchlist items for a user
