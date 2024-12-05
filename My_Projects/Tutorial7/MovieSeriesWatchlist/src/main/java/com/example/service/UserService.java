@@ -2,68 +2,44 @@ package com.example.service;
 
 import com.example.model.User;
 import com.example.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    // Register a new user with password hashing
-    public User registerUser(User user) {
-        // Check if the email already exists in the database
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already exists!");
-        }
-
-        // Check if the username already exists in the database
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            throw new RuntimeException("Username already exists!");
-        }
-
-        // Hash the password before saving the user
+    // Save user (used during signup)
+    public User saveUser(User user) {
+        // Encrypt the password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        return userRepository.save(user); // Save the user to the database with the hashed password
+        return userRepository.save(user);
     }
 
-    // Update user details (email, username, password)
+    // Update user details
     public void updateUserDetails(String email, User updatedUser) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        User existingUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
 
-        // Update email and username
-        user.setEmail(updatedUser.getEmail());
-        user.setUsername(updatedUser.getUsername());
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 
-        // Hash the password if it is updated
-        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-        }
-
-        userRepository.save(user); // Save updated user details
+        userRepository.save(existingUser);
     }
 
-    // Delete user account
+    // Delete user by email
     public void deleteUserByEmail(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        userRepository.delete(user); // Deletes the user from the database
-    }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
 
-    // Find user by username
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    // Find user by email
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        userRepository.delete(user);
     }
 }

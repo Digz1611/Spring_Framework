@@ -31,7 +31,7 @@ public class UserController {
         user.setUsername(signupRequest.getUsername()); // Set username
         user.setEmail(signupRequest.getEmail());       // Set email
         user.setPassword(signupRequest.getPassword()); // Set password
-        userService.registerUser(user); // Register the user
+        userService.saveUser(user); // Save the user
         return ResponseEntity.ok("User registered successfully! Please log in.");
     }
 
