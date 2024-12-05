@@ -23,18 +23,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // Update user details
-    public void updateUserDetails(String email, User updatedUser) {
-        User existingUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found!"));
-
-        existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-
-        userRepository.save(existingUser);
-    }
-
     // Delete user by email
     public void deleteUserByEmail(String email) {
         User user = userRepository.findByEmail(email)

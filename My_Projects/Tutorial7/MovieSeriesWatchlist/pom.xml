@@ -9,11 +9,11 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>com.jonkersvault</groupId>
-	<artifactId>finance-tracker</artifactId>
+	<groupId>com.example</groupId>
+	<artifactId>MovieSeriesWatchlist</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>JonkersVaultFinanceTracker</name>
-	<description>A comprehensive personal finance management system</description>
+	<name>MovieSeriesWatchlist</name>
+	<description>This API allows you to manage a movie series watchlist</description>
 
 	<properties>
 		<java.version>17</java.version>
