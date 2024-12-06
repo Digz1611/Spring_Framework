@@ -33,11 +33,6 @@ public class WatchlistItemService {
         return watchlistItemRepository.findByUserId(userId);
     }
 
-    // Get all watchlist items for a user filtered by category
-    public List<WatchlistItem> getWatchlistItemsByCategory(Long userId, String category) {
-        return watchlistItemRepository.findByUserIdAndCategory(userId, category);
-    }
-
     // Update a watchlist item
     public WatchlistItem updateWatchlistItem(Long userId, Long itemId, WatchlistItem updatedWatchlistItem) {
         Optional<WatchlistItem> existingItem = watchlistItemRepository.findById(itemId);
@@ -57,5 +52,4 @@ public class WatchlistItemService {
             throw new RuntimeException("Watchlist item not found or user mismatch");
         }
     }
-
 }
