@@ -44,21 +44,6 @@ public class WatchlistItemController {
     }
 
     /**
-     * Get all watchlist items for a specific user filtered by category.
-     *
-     * @param userId   The user ID.
-     * @param category The category to filter by.
-     * @return A list of filtered watchlist items.
-     */
-    @GetMapping("/category")
-    public ResponseEntity<List<WatchlistItem>> getWatchlistItemsByCategory(
-            @RequestParam Long userId,
-            @RequestParam String category) {
-        List<WatchlistItem> watchlistItems = watchlistItemService.getWatchlistItemsByCategory(userId, category);
-        return ResponseEntity.ok(watchlistItems);
-    }
-
-    /**
      * Update an existing watchlist item.
      *
      * @param id                  The ID of the watchlist item to update.
@@ -88,17 +73,5 @@ public class WatchlistItemController {
             @RequestParam Long userId) {
         watchlistItemService.deleteWatchlistItem(userId, id);
         return ResponseEntity.ok("Watchlist item deleted successfully!");
-    }
-
-    /**
-     * Delete all watchlist items for a specific user.
-     *
-     * @param userId The user ID.
-     * @return A success message.
-     */
-    @DeleteMapping("/deleteAll")
-    public ResponseEntity<String> deleteAllWatchlistItems(@RequestParam Long userId) {
-        watchlistItemService.deleteAllWatchlistItems(userId);
-        return ResponseEntity.ok("All watchlist items deleted successfully!");
     }
 }

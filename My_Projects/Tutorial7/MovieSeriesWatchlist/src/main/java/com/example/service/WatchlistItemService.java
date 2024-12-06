@@ -58,8 +58,4 @@ public class WatchlistItemService {
         }
     }
 
-    // Delete all watchlist items for a user
-    public void deleteAllWatchlistItems(Long userId) {
-        watchlistItemRepository.deleteAllByUserId(userId);
-    }
 }
