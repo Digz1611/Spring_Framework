@@ -10,8 +10,4 @@ import java.util.List;
 public interface WatchlistItemRepository extends JpaRepository<WatchlistItem, Long> {
 
     List<WatchlistItem> findByUserId(Long userId); // Get items by user ID
-
-    List<WatchlistItem> findByUserIdAndCategory(Long userId, String category); // Get items by category for user
-
-    void deleteAllByUserId(Long userId); // Delete all items by user ID
 }
