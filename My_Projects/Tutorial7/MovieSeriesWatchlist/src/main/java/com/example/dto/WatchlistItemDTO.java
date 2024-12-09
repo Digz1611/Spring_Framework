@@ -13,7 +13,7 @@ public class WatchlistItemDTO {
 
     private Long id;
     private String name;
-    private Long category;
+    private String category;
     private String releaseDate;
     private String description;
 }

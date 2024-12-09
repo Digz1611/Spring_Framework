@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.model.WatchlistItem;
+import com.example.dto.WatchlistItemDTO;
 import com.example.service.WatchlistItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +19,15 @@ public class WatchlistItemController {
     /**
      * Add a new watchlist item for a user.
      *
-     * @param watchlistItem The watchlist item to add.
-     * @param userId        The user ID to associate with the item.
+     * @param watchlistItemDTO The watchlist item to add.
+     * @param userId           The user ID to associate with the item.
      * @return The created watchlist item.
      */
     @PostMapping("/add")
-    public ResponseEntity<WatchlistItem> addWatchlistItem(
-            @RequestBody @Valid WatchlistItem watchlistItem,
+    public ResponseEntity<WatchlistItemDTO> addWatchlistItem(
+            @RequestBody @Valid WatchlistItemDTO watchlistItemDTO,
             @RequestParam Long userId) {
-        WatchlistItem createdWatchlistItem = watchlistItemService.addWatchlistItem(userId, watchlistItem);
+        WatchlistItemDTO createdWatchlistItem = watchlistItemService.addWatchlistItem(userId, watchlistItemDTO);
         return ResponseEntity.ok(createdWatchlistItem);
     }
 
@@ -38,8 +38,8 @@ public class WatchlistItemController {
      * @return A list of watchlist items.
      */
     @GetMapping("/")
-    public ResponseEntity<List<WatchlistItem>> getWatchlistItems(@RequestParam Long userId) {
-        List<WatchlistItem> watchlistItems = watchlistItemService.getWatchlistItems(userId);
+    public ResponseEntity<List<WatchlistItemDTO>> getWatchlistItems(@RequestParam Long userId) {
+        List<WatchlistItemDTO> watchlistItems = watchlistItemService.getWatchlistItems(userId);
         return ResponseEntity.ok(watchlistItems);
     }
 
@@ -48,15 +48,15 @@ public class WatchlistItemController {
      *
      * @param id                  The ID of the watchlist item to update.
      * @param userId              The user ID.
-     * @param updatedWatchlistItem The updated watchlist item.
+     * @param updatedWatchlistItemDTO The updated watchlist item.
      * @return The updated watchlist item.
      */
     @PutMapping("/update/{id}")
-    public ResponseEntity<WatchlistItem> updateWatchlistItem(
+    public ResponseEntity<WatchlistItemDTO> updateWatchlistItem(
             @PathVariable Long id,
             @RequestParam Long userId,
-            @RequestBody @Valid WatchlistItem updatedWatchlistItem) {
-        WatchlistItem updatedItem = watchlistItemService.updateWatchlistItem(userId, id, updatedWatchlistItem);
+            @RequestBody @Valid WatchlistItemDTO updatedWatchlistItemDTO) {
+        WatchlistItemDTO updatedItem = watchlistItemService.updateWatchlistItem(userId, id, updatedWatchlistItemDTO);
         return ResponseEntity.ok(updatedItem);
     }
 
