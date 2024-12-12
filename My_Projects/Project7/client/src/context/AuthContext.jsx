@@ -1,9 +1,17 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem("authToken");
+        if (token) {
+            // Optionally decode or validate token here
+            setUser({ token });
+        }
+    }, []);
 
     const login = (userData) => setUser(userData);
     const logout = () => setUser(null);
