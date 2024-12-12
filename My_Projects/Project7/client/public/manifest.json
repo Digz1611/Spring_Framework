@@ -1,0 +1,9 @@
+{
+  "short_name": "Watchlist",
+  "name": "Movie Watchlist",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
+}

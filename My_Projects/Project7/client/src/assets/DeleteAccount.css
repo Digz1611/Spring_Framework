@@ -1,0 +1,18 @@
+.delete-account-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.delete-account-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.delete-account-button:hover {
+    background-color: darkred;
+}
