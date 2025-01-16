@@ -4,12 +4,15 @@ import com.example.dto.SignupRequest;
 import com.example.dto.LoginRequest;
 import com.example.model.User;
 import com.example.service.UserService;
+import com.example.jwt.JwtUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,29 +26,33 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     // Signup endpoint
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<String> signup(@Valid @RequestBody SignupRequest signupRequest) {
         User user = new User();
         user.setUsername(signupRequest.getUsername()); // Set username
         user.setEmail(signupRequest.getEmail());       // Set email
         user.setPassword(signupRequest.getPassword()); // Set password
         userService.saveUser(user); // Save the user
-        return ResponseEntity.ok("User registered successfully! Please log in.");
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully! Please log in.");
     }
 
     // Login endpoint
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        // Authenticate using email and password
+    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(), // Use email for login
+                        loginRequest.getEmail(),
                         loginRequest.getPassword()
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return ResponseEntity.ok("Login successful!");
+
+        String token = jwtUtil.generateToken(authentication); // Generate JWT
+        return ResponseEntity.ok("Login successful! Token: " + token);
     }
 
     // Delete User account endpoint

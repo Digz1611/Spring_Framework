@@ -1,28 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { getWatchlist } from "../services/authService"; // Make sure this points to the correct service
+import React, { useState, useEffect } from 'react';
+import { addWatchlistItem, fetchWatchlist } from '../services/watchlistItemService';
+import AddItem from '../components/Watchlist/AddItem';
 
 const WatchlistPage = () => {
-    const [watchlist, setWatchlist] = useState([]);
+    const [items, setItems] = useState([]);
+    const [userId, setUserId] = useState(localStorage.getItem('userId') || ''); // Assuming the user ID is stored in localStorage
 
+    // Fetch watchlist items when the component mounts
     useEffect(() => {
-        const fetchWatchlist = async () => {
-            try {
-                const data = await getWatchlist();
-                setWatchlist(data);
-            } catch (error) {
-                console.error("Failed to fetch watchlist:", error);
+        const fetchItems = async () => {
+            if (userId) {
+                const fetchedItems = await fetchWatchlist(userId);
+                setItems(fetchedItems);
             }
         };
 
-        fetchWatchlist();
-    }, []);
+        fetchItems();
+    }, [userId]);
+
+    // Function to handle adding a new item to the watchlist
+    const handleAddItem = async (item) => {
+        if (!userId) {
+            alert("User is not logged in");
+            return;
+        }
+
+        try {
+            // Call the service function to add the item to the backend
+            const newItem = await addWatchlistItem(userId, item);
+            setItems((prevItems) => [...prevItems, newItem]); // Update state with the newly added item
+        } catch (error) {
+            console.error("Error adding item to watchlist:", error);
+        }
+    };
 
     return (
         <div>
-            <h1>Your Watchlist</h1>
+            <h1>My Watchlist</h1>
+            <AddItem addItem={handleAddItem} /> {/* Pass the handleAddItem function to AddItem component */}
+
+            {/* Display the current watchlist */}
             <ul>
-                {watchlist.map((item) => (
-                    <li key={item.id}>{item.name}</li>
+                {items.map((item) => (
+                    <li key={item.id}>
+                        {item.name} ({item.releaseDate}) - {item.category}
+                    </li>
                 ))}
             </ul>
         </div>
@@ -30,6 +52,45 @@ const WatchlistPage = () => {
 };
 
 export default WatchlistPage;
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { getWatchlist } from "../services/authService"; // Make sure this points to the correct service
+//
+// const WatchlistPage = () => {
+//     const [watchlist, setWatchlist] = useState([]);
+//
+//     useEffect(() => {
+//         const fetchWatchlist = async () => {
+//             try {
+//                 const data = await getWatchlist();
+//                 setWatchlist(data);
+//             } catch (error) {
+//                 console.error("Failed to fetch watchlist:", error);
+//             }
+//         };
+//
+//         fetchWatchlist();
+//     }, []);
+//
+//     return (
+//         <div>
+//             <h1>Your Watchlist</h1>
+//             <ul>
+//                 {watchlist.map((item) => (
+//                     <li key={item.id}>{item.name}</li>
+//                 ))}
+//             </ul>
+//         </div>
+//     );
+// };
+//
+// export default WatchlistPage;
 
 
 
