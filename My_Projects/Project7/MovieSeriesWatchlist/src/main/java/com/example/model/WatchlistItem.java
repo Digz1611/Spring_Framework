@@ -24,12 +24,12 @@ public class WatchlistItem {
     @Column(nullable = false)
     private String category;
 
-    @NotBlank(message = "Release date cannot be blank.")
-    @Column(name = "release_date", nullable = false)
-    private String releaseDate;
+    @NotBlank(message = "Release year cannot be blank.")
+    @Column(name = "release_year", nullable = false)
+    private String releaseYear;
 
     @NotBlank(message = "Description cannot be blank.")
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(nullable = false)
     private String description;
 
     @ManyToOne
