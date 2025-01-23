@@ -9,12 +9,15 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem("authToken");
         if (token) {
             // Optionally decode or validate token here
-            setUser({ token });
+            setUser({token});
         }
     }, []);
 
     const login = (userData) => setUser(userData);
-    const logout = () => setUser(null);
+    const logout = () => {
+        localStorage.removeItem("authToken")
+        setUser(null)
+};
     const deleteUser = () => {
         // Add backend API call for deleting user
         setUser(null);

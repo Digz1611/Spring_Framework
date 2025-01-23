@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { signup } from "../../services/authService";
-import '../../assets/Signup.css';
+import "../../assets/Login.css";  // Same CSS file as Login
 
 const Signup = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,27 +21,41 @@ const Signup = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit">Sign Up</button>
-        </form>
+        <div className="login-container">
+            <div className="login-form-container">
+                <form onSubmit={handleSubmit} className="login-form">
+                    <h2>Sign Up</h2>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <div className="password-field">
+                        <input
+                            type={passwordVisible ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setPasswordVisible(!passwordVisible)}
+                            className="toggle-password"
+                        >
+                            {passwordVisible ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </div>
     );
 };
 
@@ -48,19 +63,23 @@ export default Signup;
 
 
 
+
 // import React, { useState } from "react";
 // import { signup } from "../../services/authService";
-// import '../../assets/Signup.css';
+// import '../../assets/Login.css';
 //
 // const Signup = () => {
 //     const [username, setUsername] = useState("");
 //     const [email, setEmail] = useState("");
 //     const [password, setPassword] = useState("");
+//     const [passwordVisible, setPasswordVisible] = useState(false); // For toggling password visibility
 //
 //     const handleSubmit = async (e) => {
 //         e.preventDefault();
 //         try {
-//             await signup(username, email, password);
+//             const data = await signup(username, email, password);
+//             // Store the token received from the backend
+//             localStorage.setItem("authToken", data.token); // or use sessionStorage if preferred
 //             alert("Signup successful!");
 //         } catch (error) {
 //             alert("Signup failed!");
@@ -81,12 +100,21 @@ export default Signup;
 //                 value={email}
 //                 onChange={(e) => setEmail(e.target.value)}
 //             />
-//             <input
-//                 type="password"
-//                 placeholder="Password"
-//                 value={password}
-//                 onChange={(e) => setPassword(e.target.value)}
-//             />
+//             <div className="password-field">
+//                 <input
+//                     type={passwordVisible ? "text" : "password"}
+//                     placeholder="Password"
+//                     value={password}
+//                     onChange={(e) => setPassword(e.target.value)}
+//                 />
+//                 <button
+//                     type="button"
+//                     onClick={() => setPasswordVisible(!passwordVisible)}
+//                     className="toggle-password"
+//                 >
+//                     {passwordVisible ? "Hide" : "Show"}
+//                 </button>
+//             </div>
 //             <button type="submit">Sign Up</button>
 //         </form>
 //     );

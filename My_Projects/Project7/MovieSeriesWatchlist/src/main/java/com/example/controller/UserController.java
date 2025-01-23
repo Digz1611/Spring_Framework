@@ -52,7 +52,7 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtUtil.generateToken(authentication); // Generate JWT
-        return ResponseEntity.ok("Login successful! Token: " + token);
+        return ResponseEntity.ok(token);
     }
 
     // Delete User account endpoint

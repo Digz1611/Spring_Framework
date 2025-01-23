@@ -61,32 +61,44 @@ public class WatchlistItemService {
     // Update a watchlist item
     public WatchlistItemDTO updateWatchlistItem(String username, Long itemId, WatchlistItemDTO updatedWatchlistItemDTO) {
         Optional<WatchlistItem> existingItem = watchlistItemRepository.findById(itemId);
-        if (existingItem.isPresent() && existingItem.get().getUser().getUsername().equals(username)) {
-            WatchlistItem updatedItem = existingItem.get();
-            updatedItem.setName(updatedWatchlistItemDTO.getName());
-            updatedItem.setCategory(updatedWatchlistItemDTO.getCategory());
-            updatedItem.setReleaseYear(updatedWatchlistItemDTO.getReleaseYear());
-            updatedItem.setDescription(updatedWatchlistItemDTO.getDescription());
+        if (existingItem.isPresent()) {
+            WatchlistItem item = existingItem.get();
+            if (item.getUser().getUsername().equals(username)) {
+                item.setName(updatedWatchlistItemDTO.getName());
+                item.setCategory(updatedWatchlistItemDTO.getCategory());
+                item.setReleaseYear(updatedWatchlistItemDTO.getReleaseYear());
+                item.setDescription(updatedWatchlistItemDTO.getDescription());
 
-            WatchlistItem savedItem = watchlistItemRepository.save(updatedItem);
-            return new WatchlistItemDTO(
-//                    savedItem.getId(),
-                    savedItem.getName(),
-                    savedItem.getCategory(),
-                    savedItem.getReleaseYear(),
-                    savedItem.getDescription()
-            );
+                WatchlistItem savedItem = watchlistItemRepository.save(item);
+                return new WatchlistItemDTO(
+                        savedItem.getName(),
+                        savedItem.getCategory(),
+                        savedItem.getReleaseYear(),
+                        savedItem.getDescription()
+                );
+            } else {
+                throw new RuntimeException("User mismatch: You are not authorized to update this item");
+            }
+        } else {
+            throw new RuntimeException("Watchlist item not found");
         }
-        throw new RuntimeException("Watchlist item not found or user mismatch");
     }
 
     // Delete a specific watchlist item
     public void deleteWatchlistItem(String username, Long itemId) {
         Optional<WatchlistItem> existingItem = watchlistItemRepository.findById(itemId);
-        if (existingItem.isPresent() && existingItem.get().getUser().getUsername().equals(username)) {
-            watchlistItemRepository.delete(existingItem.get());
+        if (existingItem.isPresent()) {
+            WatchlistItem item = existingItem.get();
+            System.out.println("Attempting to delete item: " + item.getId());
+            System.out.println("Item owner: " + item.getUser().getUsername());
+            System.out.println("Logged-in user: " + username);
+            if (item.getUser().getUsername().equals(username)) {
+                watchlistItemRepository.delete(item);
+            } else {
+                throw new RuntimeException("User mismatch: You are not authorized to delete this item");
+            }
         } else {
-            throw new RuntimeException("Watchlist item not found or user mismatch");
+            throw new RuntimeException("Watchlist item not found");
         }
     }
 }

@@ -20,14 +20,12 @@ const WatchlistPage = () => {
 
     // Function to handle adding a new item to the watchlist
     const handleAddItem = async (item) => {
-        if (!userId) {
-            alert("User is not logged in");
-            return;
-        }
 
         try {
             // Call the service function to add the item to the backend
-            const newItem = await addWatchlistItem(userId, item);
+            const newItem = await addWatchlistItem(item);
+            console.log("other" + item);
+            console.log("newitem" + newItem);
             setItems((prevItems) => [...prevItems, newItem]); // Update state with the newly added item
         } catch (error) {
             console.error("Error adding item to watchlist:", error);
@@ -43,7 +41,7 @@ const WatchlistPage = () => {
             <ul>
                 {items.map((item) => (
                     <li key={item.id}>
-                        {item.name} ({item.releaseDate}) - {item.category}
+                        {item.name} ({item.releaseYear}) - {item.category}
                     </li>
                 ))}
             </ul>

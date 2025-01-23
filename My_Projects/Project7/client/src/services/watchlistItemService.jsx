@@ -1,40 +1,31 @@
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000"; // Use environment variable for the backend URL
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Updated to use your .env value
 
 export const fetchWatchlist = async (userId) => {
-    const response = await axios.get(`${API_BASE_URL}/watchlist/${userId}`);
-    return response.data; // Ensure this matches your backend response format
+    const response = await axios.get(`${API_BASE_URL}/watchlist/${userId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token in header
+        },
+    });
+    return response.data;
 };
 
-export const addWatchlistItem = async (userId, item) => {
-    const response = await axios.post(`${API_BASE_URL}/watchlist/${userId}/add`, item);
-    return response.data; // Ensure this matches your backend response format
+export const addWatchlistItem = async (item) => {
+    console.log(localStorage.getItem("authToken"));
+    console.log("final ", item);
+    const response = await axios.post(`${API_BASE_URL}/watchlist/add`, item, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token in header
+        },
+    }).catch((e) => console.log("ERROR", e));
+    return response.data;
 };
 
 export const deleteWatchlistItem = async (userId, itemId) => {
-    await axios.delete(`${API_BASE_URL}/watchlist/${userId}/delete/${itemId}`);
+    await axios.delete(`${API_BASE_URL}/watchlist/${userId}/delete/${itemId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token in header
+        },
+    });
 };
-
-
-// import axios from "axios";
-//
-// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-//
-// // Fetch watchlist items for a user
-// export const fetchWatchlist = async (userId) => {
-//     const response = await axios.get(`${API_BASE_URL}/watchlist?userId=${userId}`);
-//     return response.data;
-// };
-//
-// // Add an item to the watchlist
-// export const addWatchlistItem = async (userId, item) => {
-//     const response = await axios.post(`${API_BASE_URL}/watchlist/add?userId=${userId}`, item);
-//     return response.data;
-// };
-//
-// // Delete an item from the watchlist
-// export const deleteWatchlistItem = async (userId, itemId) => {
-//     const response = await axios.delete(`${API_BASE_URL}/watchlist/delete?userId=${userId}&itemId=${itemId}`);
-//     return response.data;
-// };

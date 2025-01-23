@@ -11,8 +11,6 @@ import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
     useEffect(() => {
-        // Log the environment variable
-        console.log("API Base URL:", process.env.REACT_APP_API_BASE_URL);
     }, []);
 
     return (
