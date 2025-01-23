@@ -63,7 +63,7 @@ public class WatchlistItemService {
         Optional<WatchlistItem> existingItem = watchlistItemRepository.findById(itemId);
         if (existingItem.isPresent()) {
             WatchlistItem item = existingItem.get();
-            if (item.getUser().getUsername().equals(username)) {
+            if (item.getUser().getEmail().equals(username)) {
                 item.setName(updatedWatchlistItemDTO.getName());
                 item.setCategory(updatedWatchlistItemDTO.getCategory());
                 item.setReleaseYear(updatedWatchlistItemDTO.getReleaseYear());
@@ -89,10 +89,7 @@ public class WatchlistItemService {
         Optional<WatchlistItem> existingItem = watchlistItemRepository.findById(itemId);
         if (existingItem.isPresent()) {
             WatchlistItem item = existingItem.get();
-            System.out.println("Attempting to delete item: " + item.getId());
-            System.out.println("Item owner: " + item.getUser().getUsername());
-            System.out.println("Logged-in user: " + username);
-            if (item.getUser().getUsername().equals(username)) {
+            if (item.getUser().getEmail().equals(username)) {
                 watchlistItemRepository.delete(item);
             } else {
                 throw new RuntimeException("User mismatch: You are not authorized to delete this item");
