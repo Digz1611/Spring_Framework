@@ -1,32 +1,61 @@
-.add-item-form {
+.add-item-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7fb;
+    font-family: 'Arial', sans-serif;
+}
+
+.add-item-form-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+}
+
+.add-item-form h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
 }
 
 .add-item-form input,
 .add-item-form textarea {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    width: calc(100% - 2rem); /* Leaves a uniform gap on both sides */
+    padding: 0.9rem;
+    margin: 0 auto 1.2rem; /* Centers the inputs and creates spacing */
     border-radius: 5px;
-    font-size: 16px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    display: block; /* Ensures alignment */
+    transition: border-color 0.3s ease;
+}
+
+.add-item-form input:focus,
+.add-item-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.add-item-form textarea {
+    resize: vertical;
 }
 
 .add-item-form button {
+    width: 100%;
+    padding: 0.9rem;
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px;
     border-radius: 5px;
+    font-size: 1.1rem;
     cursor: pointer;
-    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .add-item-form button:hover {

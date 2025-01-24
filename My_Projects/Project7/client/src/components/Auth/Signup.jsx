@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { signup } from "../../services/authService";
-import "../../assets/Login.css";  // Same CSS file as Login
+import "../../assets/Auth.css";  // Same CSS file as Login
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -60,64 +60,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-
-
-
-// import React, { useState } from "react";
-// import { signup } from "../../services/authService";
-// import '../../assets/Login.css';
-//
-// const Signup = () => {
-//     const [username, setUsername] = useState("");
-//     const [email, setEmail] = useState("");
-//     const [password, setPassword] = useState("");
-//     const [passwordVisible, setPasswordVisible] = useState(false); // For toggling password visibility
-//
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         try {
-//             const data = await signup(username, email, password);
-//             // Store the token received from the backend
-//             localStorage.setItem("authToken", data.token); // or use sessionStorage if preferred
-//             alert("Signup successful!");
-//         } catch (error) {
-//             alert("Signup failed!");
-//         }
-//     };
-//
-//     return (
-//         <form onSubmit={handleSubmit}>
-//             <input
-//                 type="text"
-//                 placeholder="Username"
-//                 value={username}
-//                 onChange={(e) => setUsername(e.target.value)}
-//             />
-//             <input
-//                 type="email"
-//                 placeholder="Email"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//             />
-//             <div className="password-field">
-//                 <input
-//                     type={passwordVisible ? "text" : "password"}
-//                     placeholder="Password"
-//                     value={password}
-//                     onChange={(e) => setPassword(e.target.value)}
-//                 />
-//                 <button
-//                     type="button"
-//                     onClick={() => setPasswordVisible(!passwordVisible)}
-//                     className="toggle-password"
-//                 >
-//                     {passwordVisible ? "Hide" : "Show"}
-//                 </button>
-//             </div>
-//             <button type="submit">Sign Up</button>
-//         </form>
-//     );
-// };
-//
-// export default Signup;
