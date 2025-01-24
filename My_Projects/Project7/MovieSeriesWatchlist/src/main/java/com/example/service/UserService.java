@@ -33,12 +33,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // Delete user by email
+    // Delete user by email, including associated watchlist items
     public void deleteUserByEmail(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found!"));
-System.out.println("testing the dlt");
-System.out.println(email);
+
+        // Automatically deletes associated WatchlistItems due to cascade settings
         userRepository.delete(user);
     }
 }

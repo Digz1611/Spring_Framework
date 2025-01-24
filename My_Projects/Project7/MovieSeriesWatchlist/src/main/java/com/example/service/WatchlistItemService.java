@@ -47,10 +47,15 @@ public class WatchlistItemService {
 
     // Get all watchlist items for a user
     public List<WatchlistItemDTO> getWatchlistItems(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        // Fetch the user by their username or throw an exception if not found
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Fetch all watchlist items associated with the user's ID
         List<WatchlistItem> items = watchlistItemRepository.findByUserId(user.getId());
+
+        // Map the watchlist items to WatchlistItemDTO and return the list
         return items.stream().map(item -> new WatchlistItemDTO(
-//                item.getId(),
                 item.getName(),
                 item.getCategory(),
                 item.getReleaseYear(),
