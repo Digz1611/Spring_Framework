@@ -32,7 +32,7 @@ export const addWatchlistItem = async (item) => {
 };
 
 export const deleteWatchlistItem = async (userId, itemId) => {
-    await axios.delete(`${API_BASE_URL}/watchlist/${userId}/delete/${itemId}`, {
+    await axios.delete(`${API_BASE_URL}/watchlist/delete/${itemId}`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token in header
         },

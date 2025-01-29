@@ -29,6 +29,6 @@ public class WatchlistItemDTO {
     private String releaseYear;
 
     @NotBlank(message = "Description cannot be blank.")
-    @Size(max = 1000, message = "Description must not exceed 1000 characters.")
+    @Size(max = 200, message = "Description must not exceed 200 characters.")
     private String description;
 }
