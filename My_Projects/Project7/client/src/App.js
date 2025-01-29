@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ProfilePage from "./pages/ProfilePage";
 import WatchlistPage from "./pages/WatchlistPage";
+import EditWatchlistItemPage from "./pages/EditWatchlistItemPage"; // Import the Edit page
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import { AuthProvider } from "./context/AuthContext";
@@ -23,6 +24,7 @@ const App = () => {
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/watchlist" element={<WatchlistPage />} />
+                    <Route path="/edit/:id" element={<EditWatchlistItemPage />} /> {/* Add this route */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>

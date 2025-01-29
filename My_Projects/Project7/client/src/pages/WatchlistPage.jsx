@@ -18,19 +18,25 @@ const WatchlistPage = () => {
         fetchItems();
     }, [userId]);
 
-    // Function to handle adding a new item to the watchlist
     const handleAddItem = async (item) => {
-
         try {
             // Call the service function to add the item to the backend
             const newItem = await addWatchlistItem(item);
-            console.log("other" + item);
-            console.log("newitem" + newItem);
-            setItems((prevItems) => [...prevItems, newItem]); // Update state with the newly added item
+
+            // Log the original item and the new item returned from the backend
+            console.log("Item to Add:", item);
+            console.log("New Item from Backend:", newItem);
+
+            // Log the ID of the new item
+            console.log("New Item ID after adding:", newItem.id); // Log the ID of the newly added item
+
+            // Update the state with the new item, ensuring the item ID is included
+            setItems((prevItems) => [...prevItems, newItem]);
         } catch (error) {
             console.error("Error adding item to watchlist:", error);
         }
     };
+
 
     return (
         <div>

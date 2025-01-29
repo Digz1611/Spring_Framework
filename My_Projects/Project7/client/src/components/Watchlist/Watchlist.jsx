@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { fetchWatchlist } from "../../services/watchlistItemService"; // Import the fetchWatchlist function
+import { fetchWatchlist } from "../../services/watchlistItemService";
+import { deleteWatchlistItem } from "../../services/watchlistItemService";
 import '../../assets/Watchlist.css';
 import { MdOutlineDelete } from 'react-icons/md';
 import { AiOutlineEdit } from 'react-icons/ai';
@@ -7,11 +8,12 @@ import { Link } from 'react-router-dom';
 
 const Watchlist = () => {
     const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [fetchData, setFetchData] = useState(true);
 
-    // Fetch watchlist items
     useEffect(() => {
+        if (!!fetchData) {
         const getWatchlist = async () => {
             try {
                 const fetchedItems = await fetchWatchlist();
@@ -23,9 +25,10 @@ const Watchlist = () => {
                 setLoading(false);
             }
         };
-
         getWatchlist();
-    }, []);
+        setFetchData(false);
+        };
+    }, [fetchData]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -35,12 +38,18 @@ const Watchlist = () => {
         return <div>{error}</div>;
     }
 
-    const handleEdit = (id) => {
-        console.log("abt time for a change");
-    };
-
     const handleDelete = (id) => {
-        console.log("and bam, dlted");
+        const confirmDelete = window.confirm("Are you sure you want to delete this item?");
+        if (confirmDelete) {
+            deleteWatchlistItem(id)
+                .then(() => {
+                    // Remove the deleted item from the UI
+                    setFetchData(true)
+                })
+                .catch(error => {
+                    console.error("There was an error deleting the item:", error);
+                });
+        }
     };
 
     return (
@@ -59,10 +68,9 @@ const Watchlist = () => {
                             <p className="category">{item.category}</p>
                             <p className="description">{item.description}</p>
                             <div className="card-footer flex justify-center gap-4 mt-4">
-                                <Link to={`/watchlist`}>
+                                <Link to={`/edit/${item.id}`}>
                                     <AiOutlineEdit
-                                        className='text-2xl text-yellow-300 hover:text-black'
-                                        onClick={() => handleEdit(item.id)}
+                                        className="text-2xl text-yellow-300 hover:text-black"
                                     />
                                 </Link>
                                 <button
