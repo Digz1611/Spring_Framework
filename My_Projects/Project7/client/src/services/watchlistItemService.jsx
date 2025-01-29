@@ -2,15 +2,24 @@ import axios from "axios";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Updated to use your .env value
 
-export const fetchWatchlist = async (userId) => {
-    const response = await axios.get(`${API_BASE_URL}/watchlist/${userId}`, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token in header
-        },
-    });
-    return response.data;
+// Fetch watchlist items
+export const fetchWatchlist = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/watchlist/`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token in header
+            },
+        });
+
+        console.log("Fetched Watchlist Items:", response.data); // Log to check the data
+        return response.data; // Return the data from the response
+    } catch (error) {
+        console.error("Error fetching watchlist items:", error); // Log any errors
+        throw error; // Throw error to handle it in the component
+    }
 };
 
+// Add watchlist items
 export const addWatchlistItem = async (item) => {
     console.log(localStorage.getItem("authToken"));
     console.log("final ", item);

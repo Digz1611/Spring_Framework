@@ -13,8 +13,8 @@ const Login = () => {
         e.preventDefault();
         try {
             await login(email, password);
-            alert("Login successful!");
-            navigate("/profile");
+
+            navigate("/");
         } catch (error) {
             alert("Login failed!");
         }

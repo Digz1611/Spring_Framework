@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signup } from "../../services/authService";
-import "../../assets/Auth.css";  // Same CSS file as Login
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import "../../assets/Auth.css";
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -8,13 +9,15 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
 
+    const navigate = useNavigate(); // Initialize useNavigate
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const data = await signup(username, email, password);
-            // Store the token received from the backend
-            localStorage.setItem("authToken", data.token); // or use sessionStorage if preferred
+            localStorage.setItem("authToken", data.token);
             alert("Signup successful!");
+            navigate("/login"); // Redirect to /login
         } catch (error) {
             alert("Signup failed!");
         }

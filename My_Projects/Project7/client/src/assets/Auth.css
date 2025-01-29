@@ -91,10 +91,6 @@ button[type="submit"]:hover {
     text-align: center;
 }
 
-.signup-redirect p {
-    color: #555;
-}
-
 .signup-redirect button {
     background: none;
     color: #007bff;
@@ -104,8 +100,4 @@ button[type="submit"]:hover {
     text-decoration: underline;
     padding: 0;
     margin-top: 0.5rem;
-}
-
-.signup-redirect button:hover {
-    color: #0056b3;
 }

@@ -1,59 +1,31 @@
-import React, { useState } from "react";
-import { useAuth } from '../../useAuth/useAuth';
+import React from "react";
+import { useAuth } from "../../context/AuthContext";
+import axios from "axios";
 
-const UserManagement = () => {
-    const [userId, setUserId] = useState(""); // State to hold the user ID to delete
-    const [message, setMessage] = useState(""); // State for feedback messages
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Use your .env value
 
-    const { token } = useAuth(); // Destructure the token from useAuth
+const DeleteAccount = () => {
+    const { user, logout } = useAuth();
 
-    const deleteUser = async (id) => {
+    const handleDeleteAccount = async () => {
         try {
-            console.log("Attempting to delete user with ID:", id);
-
-            const response = await fetch(`http://localhost:8080/api/auth//${id}`, {
-                method: "DELETE",
+            await axios.delete(`${API_BASE_URL}/auth/delete`, {
                 headers: {
-                    "Content-Type": "application/json", // Optional for DELETE
-                    Authorization: `Bearer ${token}`, // Use the token from useAuth
+                    Authorization: `Bearer ${user.token}`, // Token for authentication
                 },
             });
 
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(errorMessage || `HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json(); // Optional: depends on backend response
-            console.log("User deleted successfully:", data);
-            setMessage("User deleted successfully.");
+            alert("Account deleted successfully!");
+            logout(); // Log the user out after account deletion
         } catch (error) {
-            console.error("Error deleting user:", error.message);
-            setMessage(`Failed to delete user: ${error.message}`);
+            console.error("Error deleting account:", error.message);
+            alert(`Failed to delete account: ${error.message}`);
         }
-    };
-
-    const handleDelete = () => {
-        if (!userId) {
-            setMessage("Please enter a valid user ID.");
-            return;
-        }
-        deleteUser(userId);
     };
 
     return (
-        <div>
-            <h2>User Management</h2>
-            <input
-                type="text"
-                placeholder="Enter User ID"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-            />
-            <button onClick={handleDelete}>Delete User</button>
-            {message && <p>{message}</p>}
-        </div>
+        <button onClick={handleDeleteAccount}>Delete Account</button>
     );
 };
 
-export default UserManagement;
+export default DeleteAccount;
